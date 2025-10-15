@@ -1,0 +1,39 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://tkoh.studios/gestor-cliente/schemas"
+           targetNamespace="http://tkoh.studios/gestor-cliente/schemas"
+           elementFormDefault="qualified">
+
+    <!-- Request para registrar un nuevo cliente -->
+    <xs:element name="registrarClienteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="cliente" type="tns:cliente"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Response después de registrar un cliente -->
+    <xs:element name="registrarClienteResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="mensaje" type="xs:string"/>
+                <xs:element name="clienteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Definición del tipo complejo 'cliente' -->
+    <xs:complexType name="cliente">
+        <xs:sequence>
+            <xs:element name="documento" type="xs:string"/>
+            <xs:element name="tipo_documento" type="xs:string"/>
+            <xs:element name="nombres" type="xs:string"/>
+            <xs:element name="apellido_paterno" type="xs:string"/>
+            <xs:element name="apellido_materno" type="xs:string"/>
+            <xs:element name="telefono" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
