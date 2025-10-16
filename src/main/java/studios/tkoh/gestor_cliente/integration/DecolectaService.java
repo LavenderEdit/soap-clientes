@@ -45,7 +45,7 @@ public class DecolectaService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        String url = baseUrl + "/" + documento;
+        String url = baseUrl + documento;
 
         try {
             ResponseEntity<DecolectaResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, DecolectaResponse.class);
@@ -53,7 +53,6 @@ public class DecolectaService {
                 return Optional.of(response.getBody());
             }
         } catch (RestClientException e) {
-            // Loggear el error en un escenario real
             System.err.println("Error al consultar la API de Decolecta: " + e.getMessage());
         }
         return Optional.empty();

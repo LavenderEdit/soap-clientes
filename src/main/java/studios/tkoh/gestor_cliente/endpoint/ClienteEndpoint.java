@@ -17,7 +17,7 @@ import studios.tkoh.gestor_cliente.service.ClienteService;
         serviceName = "ClienteService",
         portName = "ClientePort",
         targetNamespace = "http://studios/tkoh/gestor_cliente/schemas",
-        endpointInterface = "studios/tkoh/gestor_cliente.endpoint.ClienteEndpointPort"
+        endpointInterface = "studios.tkoh.gestor_cliente.endpoint.ClienteEndpointPort"
 )
 @RequiredArgsConstructor
 public class ClienteEndpoint implements ClienteEndpointPort {
