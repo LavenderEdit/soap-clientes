@@ -54,9 +54,9 @@ public class ClienteServiceImpl implements ClienteService {
             builder.numeroIdentificacion(data.getNumeroDocumentoRuc()) // Usamos el campo corregido
                     .nombreRazonSocial(data.getRazonSocial());
 
-            TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("06")
+            TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("6")
                     .orElseGet(() -> tipoClienteRepository.save(
-                    new TipoCliente(null, "06", "RUC - REGISTRO UNICO DE CONTRIBUYENTES", null, null))
+                    new TipoCliente(null, "6", "RUC - REGISTRO UNICO DE CONTRIBUYENTES", null, null))
                     );
             builder.tipoCliente(tipo);
 
@@ -68,7 +68,7 @@ public class ClienteServiceImpl implements ClienteService {
             builder.numeroIdentificacion(data.getDocumentNumber())
                     .nombreRazonSocial(data.getFullName());
 
-            TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("01")
+            TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("1")
                     .orElseGet(() -> tipoClienteRepository.save(
                     new TipoCliente(null, "01", "DNI - DOC. NACIONAL DE IDENTIDAD", null, null))
                     );
