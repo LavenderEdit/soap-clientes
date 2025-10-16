@@ -1,38 +1,47 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://tkoh.studios/gestor-cliente/schemas"
-           targetNamespace="http://tkoh.studios/gestor-cliente/schemas"
+           xmlns:tns="http://studios/tkoh/gestor_cliente/schemas"
+           targetNamespace="http://studios/tkoh/gestor_cliente/schemas"
            elementFormDefault="qualified">
 
-    <!-- Request para registrar un nuevo cliente -->
+    <!-- Enumeración para el tipo de documento -->
+    <xs:simpleType name="tipoDocumento">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DNI"/>
+            <xs:enumeration value="RUC"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Petición para registrar un nuevo cliente por su documento -->
     <xs:element name="registrarClienteRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="cliente" type="tns:cliente"/>
+                <xs:element name="tipoDocumento" type="tns:tipoDocumento"/>
+                <xs:element name="numeroDocumento" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- Response después de registrar un cliente -->
+    <!-- Respuesta después de registrar un cliente -->
     <xs:element name="registrarClienteResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" type="xs:string"/>
                 <xs:element name="mensaje" type="xs:string"/>
-                <xs:element name="clienteId" type="xs:long"/>
+                <xs:element name="cliente" type="tns:cliente"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- Definición del tipo complejo 'cliente' -->
+    <!-- Definición del tipo complejo 'cliente' para la respuesta -->
     <xs:complexType name="cliente">
         <xs:sequence>
-            <xs:element name="documento" type="xs:string"/>
-            <xs:element name="tipo_documento" type="xs:string"/>
-            <xs:element name="nombres" type="xs:string"/>
-            <xs:element name="apellido_paterno" type="xs:string"/>
-            <xs:element name="apellido_materno" type="xs:string"/>
-            <xs:element name="telefono" type="xs:string"/>
-            <xs:element name="email" type="xs:string"/>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="numeroIdentificacion" type="xs:string"/>
+            <xs:element name="nombreRazonSocial" type="xs:string"/>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="telefonoCelular" type="xs:string" minOccurs="0"/>
+            <xs:element name="direccionPrincipal" type="xs:string" minOccurs="0"/>
+            <xs:element name="tipoCliente" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
