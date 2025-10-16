@@ -21,19 +21,20 @@ public class DecolectaResponse {
     public static class Data {
 
         // Campos para DNI
-        @JsonProperty("numero")
-        private String numeroDni;
-        @JsonProperty("nombre_completo")
-        private String nombreCompleto;
-        private String nombres;
-        @JsonProperty("apellido_paterno")
-        private String apellidoPaterno;
-        @JsonProperty("apellido_materno")
-        private String apellidoMaterno;
+        @JsonProperty("document_number")
+        private String documentNumber;
+        @JsonProperty("full_name")
+        private String fullName;
+        @JsonProperty("first_name")
+        private String firstName;
+        @JsonProperty("first_last_name")
+        private String firstLastName;
+        @JsonProperty("second_last_name")
+        private String secondLastName;
 
         // Campos para RUC
-        @JsonProperty("ruc")
-        private String numeroRuc;
+        @JsonProperty("numero_documento")
+        private String numeroDocumentoRuc;
         @JsonProperty("razon_social")
         private String razonSocial;
         @JsonProperty("estado")

@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import studios.tkoh.gestor_cliente.integration.DecolectaService;
 import studios.tkoh.gestor_cliente.integration.dto.DecolectaResponse;
 import studios.tkoh.gestor_cliente.model.Cliente;
-import studios.tkoh.gestor_cliente.model.Direccion;
 import studios.tkoh.gestor_cliente.model.TipoCliente;
 import studios.tkoh.gestor_cliente.repository.ClienteRepository;
 import studios.tkoh.gestor_cliente.repository.TipoClienteRepository;
@@ -42,20 +41,19 @@ public class ClienteServiceImpl implements ClienteService {
                         .orElseThrow(() -> new IllegalArgumentException("No se encontró DNI: " + numeroDocumento));
 
         // 3. Mapear la respuesta a la entidad Cliente
-        Cliente nuevoCliente = mapearRespuestaACliente(response.getData());
+        Cliente nuevoCliente = mapearRespuestaACliente(response.getData(), tipoDocumento);
 
         // 4. Guardar y devolver el cliente
         return clienteRepository.save(nuevoCliente);
     }
 
-    private Cliente mapearRespuestaACliente(DecolectaResponse.Data data) {
+    private Cliente mapearRespuestaACliente(DecolectaResponse.Data data, TipoDocumento tipoDocumento) {
         Cliente.ClienteBuilder builder = Cliente.builder();
 
-        if (data.getNumeroRuc() != null) { // Es un RUC
-            builder.numeroIdentificacion(data.getNumeroRuc())
+        if (tipoDocumento == TipoDocumento.RUC) {
+            builder.numeroIdentificacion(data.getNumeroDocumentoRuc()) // Usamos el campo corregido
                     .nombreRazonSocial(data.getRazonSocial());
 
-            // Asignar tipo de cliente basado en el código SUNAT para RUC (ejemplo "06")
             TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("06")
                     .orElseGet(() -> tipoClienteRepository.save(
                     new TipoCliente(null, "06", "RUC - REGISTRO UNICO DE CONTRIBUYENTES", null, null))
@@ -63,18 +61,13 @@ public class ClienteServiceImpl implements ClienteService {
             builder.tipoCliente(tipo);
 
             if (data.getDireccion() != null && !data.getDireccion().isEmpty()) {
-                Direccion dir = new Direccion();
-                dir.setDireccionCompleta(data.getDireccion());
-                dir.setDescripcion("Dirección Fiscal Principal");
                 builder.direccionPrincipal(data.getDireccion());
-                builder.build().addDireccion(dir);
             }
 
         } else { // Es un DNI
-            builder.numeroIdentificacion(data.getNumeroDni())
-                    .nombreRazonSocial(data.getNombreCompleto());
+            builder.numeroIdentificacion(data.getDocumentNumber())
+                    .nombreRazonSocial(data.getFullName());
 
-            // Asignar tipo de cliente basado en el código SUNAT para DNI (ejemplo "01")
             TipoCliente tipo = tipoClienteRepository.findByCodigoSUNAT("01")
                     .orElseGet(() -> tipoClienteRepository.save(
                     new TipoCliente(null, "01", "DNI - DOC. NACIONAL DE IDENTIDAD", null, null))
@@ -90,5 +83,4 @@ public class ClienteServiceImpl implements ClienteService {
     public Optional<Cliente> findById(Long id) {
         return clienteRepository.findById(id);
     }
-
 }
