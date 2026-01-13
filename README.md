@@ -154,7 +154,7 @@ Content-Type: text/xml
    <soapenv:Body>
       <sch:registrarClienteRequest>
          <sch:tipoDocumento>DNI</sch:tipoDocumento>
-         <sch:numeroDocumento>73945071</sch:numeroDocumento>
+         <sch:numeroDocumento>12345678</sch:numeroDocumento>
       </sch:registrarClienteRequest>
    </soapenv:Body>
 </soapenv:Envelope>
@@ -184,7 +184,7 @@ Content-Type: text/xml
    <soapenv:Body>
       <sch:registrarClienteRequest>
          <sch:tipoDocumento>RUC</sch:tipoDocumento>
-         <sch:numeroDocumento>10073773445</sch:numeroDocumento>
+         <sch:numeroDocumento>12345678911</sch:numeroDocumento>
       </sch:registrarClienteRequest>
    </soapenv:Body>
 </soapenv:Envelope>
